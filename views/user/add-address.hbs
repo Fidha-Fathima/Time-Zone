@@ -1,0 +1,80 @@
+{{!-- <div class="address-cont">
+    <label for="addline">
+        <h5>Address Line 1&nbsp &nbsp : &nbsp &nbsp</h5>
+    </label>
+    <input type="text" id="addline" name="addline" style="width: 250px;" readonly="readonly"><br><br>
+</div>
+
+
+
+<div class="infor-infor">
+    <label for="city">
+        <h5>City &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp : &nbsp
+            &nbsp</h5>
+    </label>
+    <input type="text" id="city" name="city" style="width: 250px;"><br><br>
+</div>
+
+
+
+<div class="infor-infor">
+    <label for="district">
+        <h5>District&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp</h5>
+    </label>
+    <input type="text" id="district" name="district" style="width: 250px;" readonly="readonly"><br><br>
+</div>
+
+
+<div class="infor-infor">
+    <label for="state">
+        <h5>State &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp</h5>
+    </label>
+    <input type="text" id="state" name="state" style="width: 250px;" readonly="readonly"><br><br>
+</div>
+
+
+<div class="infor-infor">
+    <label for="zip">
+        <h5>Zip &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp
+        </h5>
+    </label>
+    <input type="text" id="zip" name="zip" style="width: 250px;" readonly="readonly"><br><br>
+</div>
+
+
+<div class="save-add" style="display:flex; justify-content:center;">
+    <div class="btn btn-success"> Save</div>
+</div> --}}
+
+
+
+<div class="address-cont">
+    <h3 >Add Address</h3>
+    <hr style="margin-bottom:40px;">
+
+
+    <form action="/add-address" method="post">
+        <label for="">  <h5>Address Line &nbsp &nbsp &nbsp : &nbsp &nbsp</h5> </label>
+        <input type="text" id="addline" name="address" style="width: 700px;"><br><br>
+
+         <label for=""> <h5>City &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp</h5></label>
+        <input type="text" id="city" name="city" style="width: 250px;">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+
+        <label for=""> <h5>District&nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp</h5> </label>
+        <input type="text" id="district" name="district" style="width: 250px;"><br><br>
+
+        <label for=""> <h5>State &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp : &nbsp &nbsp</h5></label>
+        <input type="text" id="state" name="state" style="width: 250px;">&nbsp &nbsp &nbsp &nbsp &nbsp
+
+         <label for=""> <h5>PIN Code &nbsp &nbsp &nbsp : &nbsp &nbsp</h5></label>
+        <input type="text" id="pin" name="pin" style="width: 250px;"><br><br>
+
+       <div style="padding-left:450px">
+        <button type="submit" class="btn btn-success mt-4">Submit</button>
+       </div>
+        
+        {{!-- <label for="">Category offer</label>
+        <input type="text" name="categoryoffer" class="form-control"> --}}
+</div>
+</form>
+</div>

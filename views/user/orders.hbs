@@ -1,0 +1,51 @@
+<!-- Main Wrapper -->
+
+
+<section>
+    <div class="container order-main-tab ">
+        <h2  style="font-weight: 600; padding-left:410px;"> <img style="width:100px;height:80px;"
+                            src="https://thumbs.gfycat.com/CompleteShallowFlyingsquirrel-size_restricted.gif">ORDERS</h2>
+        <table class="table table-striped w-auto mt-3" id="">
+            <thead class="thead-dark">
+                <tr style="text-align: center;">
+                    <th style="width: 20%;" scope="col">Date</th>
+                    <th style="width: 30%;" scope="col">Address</th>
+                    <th style="width: 10%;" scope="col">Payment Method</th>
+                    <th style="width: 5%;" scope="col">Amount</th>
+                    <th style="width: 10%;" scope="col">Status</th>
+                    <th style="width: 25%;" scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr style="text-align:center ;">
+                    <td style="width:20%;font-size:14px; ">{{this.date}}</td>
+                    <td style="width: 30%;font-size:14px;">{{this.deliveryDetails.address}}</td>
+                    <td style="width: 10%;font-size:14px;">{{this.paymentMethod}}</td>
+                    <td style="width: 5%;font-size:14px;">₹ {{this.totalAmount}}</td>
+                    <td style="width: 10%;font-size:14px;">{{this.status}}</td>
+                    <td style="width: 25%;">
+                       
+                        
+                         {{#ifCond status "Cancelled"}}
+                         <h6 class="btn " style="width:130px ;border-radius:30px; color:red;"><img style="width:10px;height:10px;" class="mr-2" src="https://i.pinimg.com/originals/b1/e1/0b/b1e10b0e4e26bf904a565172e79992ae.png" >Cancelled</h6>
+                         {{else}}
+                           <a href="/ordered-products/{{this._id}}" class="btn btn-dark" >View Details</a>
+                            <a href="/cancel-order/{{this._id}}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to cancel this order')">Cancel </a>
+                        {{/ifCond}}
+
+                        {{!-- <a href="/remove-order/{{this._id}}"><i class="bi bi-trash3-fill"  onclick="return confirm('Are you sure you want to cancel this order')"></i></a> --}}
+                    </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+</div>
+
+
+{{!-- <div class="foot-orders mt-4">
+
+    <div  style="margin-left:500px" class="btn btn-danger">Go back to purchase more..</div>
+</div> --}}

@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg ftco_navbar nav-container ftco-navbar-white nav-color" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/">TIME ZONE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item mr-4"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item mr-4"><a href="/all-products" class="nav-link">All Products</a></li>
+                <li class="nav-item mr-4 "><a href="/orders" class="nav-link">Orders</a></li>
+
+            </ul>
+            <a href="/wishlist"><i class="bi bi-bag-heart-fill mr-4 ml-5"></i></a>
+            <a href="/cart"> <i class="bi bi-cart2 mr-4 ml-3"><span
+                        class="badge badge-warning">{{cartcount}}</span></i></a>
+            {{!-- <button class="btn btn-dark btn-sm dropdown-toggle " type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-person-circle"></i>
+                {{#if user}}
+                {{user.firstname}}
+                {{else}}
+                Account
+                {{/if}}
+
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {{#if user}}
+                <a class="dropdown-item" href="/user-logout">Logout</a>
+                {{else}}
+                <a class="dropdown-item" href="/user-login">Login</a>
+                <a class="dropdown-item" href="/registration">Sign Up</a>
+                {{/if}}
+
+            </div> --}}
+
+            <label class="dropdown">
+                <div class="dd-button">
+                    <i class="bi bi-person-circle"></i>
+                    {{#if user}}
+                    {{user.firstname}}
+                    {{else}}
+                    Account
+                    {{/if}}
+                </div>
+                <input type="checkbox" class="dd-input" id="test">
+                <ul class="dd-menu">
+                    {{#if user}}
+                    <li><a href="/user-profile">Profile</a></li>
+                    <li><a href="/user-logout">Logout</a></li>
+                    {{else}}
+                    <li> <a href="/user-login">Login</a></li>
+                    <li><a href="/registration">Sign Up</a></li>
+                    {{/if}}
+                </ul>
+            </label>
+        </div>
+    </div>
+    </div>
+</nav>

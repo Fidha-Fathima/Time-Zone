@@ -1,0 +1,51 @@
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>USERS</h2>
+                </div>
+            </div>
+            <table class="table table-striped w-auto mt-3" id="table_id">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 20%;" scope="col"> Name</th>
+                        <th style="width: 30%;" scope="col">Email</th>
+                        <th style="width: 30%;" scope="col">Mobile-Number</th>
+                        <th style="width: 20%;" scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td style="width: 20%;">{{this.firstname}}</td>
+                        <td style="width: 30%;">{{this.email}}</td>
+                        <td style="width: 30%;">{{this.mobilenumber}}</td>
+                        <td style="width: 20%;">
+                            {{#if this.blockStatus}}
+                            <a class="btn btn-danger"  style="width: 100px;height: 38px;"  href="/admin/block-user/{{this._id}}/{{this.blockStatus}}"
+                                onclick="return confirm('Are you sure you want to Block this user ?')">Block</a>
+                            {{else}}
+                            <a class="btn btn-secondary" style="width: 100px;height: 38px;px" href="/admin/block-user/{{this._id}}/{{this.blockStatus}}"
+                                onclick="return confirm('Are you sure you want to unblock this user ?')">Unblock</a>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tbody>
+                    {{!-- {{#each products}}
+                    <tr>
+                        <td style="width: 10%;"><img style="width: 70px; height:50px"
+                                src="/product-images/{{this._id}}.jpg"></td>
+                        <td style="width: 20%;">{{this.name}}</td>
+                        <td style="width: 20%;">{{this.category}}</td>
+                        <td style="width: 30%;">{{this.description}}</td>
+                        <td style="width: 20%;">{{this.price}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody> --}}
+            </table>
+        </div>
+    </section>
+</div>

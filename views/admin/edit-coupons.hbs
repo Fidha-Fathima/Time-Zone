@@ -1,0 +1,30 @@
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>EDIT Coupons</h2>
+                </div>
+            </div>
+            <section>
+                <div class="container">
+                    <div class="main-form-add mt-4">
+                        <div class="container ">
+                            <form action="/admin/edit-coupons/{{coupon._id}}" method="post">
+                                <label for="">Coupon Name</label>
+                                <input type="text" name="couponname" class="form-control" value="{{coupon.name}}">
+                                 <label for="">Coupon Code</label>
+                                <input type="text" name="offer" class="form-control" value="{{coupon.coupon_code}}">
+                                <label for="">Discount</label>
+                                <input type="text" name="discount" class="form-control" value="{{coupon.discount}}">
+                                  <label for="">Min amount</label>
+                                <input type="number" name="mintotal" class="form-control" value="{{coupon.mintotal}}">
+                                <button type="submit" class="btn btn-success mt-4">Submit</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>

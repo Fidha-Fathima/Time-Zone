@@ -1,0 +1,87 @@
+<div class="container cat-pro-mainer">
+  <div class="conta">
+    <div class="content">
+      <ul class="content-cont">
+        {{#each category}}
+          <li class="nav-itemss mr-4">
+            <a href="/show-catproducts/{{this._id}}" class="nav-linkss">
+              {{this.categoryname}}
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="all-products">
+  <div class="container">
+    <div class="row">
+      {{#each products}}
+        <div class="col-md-3 p-3">
+          <div class="card" style="width: 14rem; min-height:18rem">
+            <img
+              class="card-img-top"
+              onclick="location.href='/product-view/{{this._id}}'"
+              src="/product-images/{{this._id}}0.jpg"
+              alt=""
+              style="height:8rem ; width:8rem;margin-left:auto;margin-right:auto"
+            />
+            <div class="card-body d-flex flex-column">
+              <h5
+                class="card-title"
+                style="font-size :18px ; text-align:center;"
+              >
+                {{this.name}}
+              </h5>
+              {{!-- <p class="card-text">Category :{{this.category}}</p> --}}
+              {{!-- <p class="card-text">{{this.description}}</p> --}}
+
+              {{#ifCond this.offer 0}}
+                <h5 class="card-title" style="text-align:center ;">
+                  ₹
+                  {{this.price}}
+                </h5>
+              {{else}}
+                <s>
+                  <h5 class="card-title" style="text-align:center ;color:red";>
+                    ₹
+                    {{this.price}}
+                  </h5>
+                </s>
+                <h5 class="card-title" style="text-align:center ;">
+                  {{this.total}}
+                </h5>
+              {{/ifCond}}
+
+              <div class="mt-auto" style="padding-left:30px ;">
+                <a href="/add-to-cart/{{this._id}}">
+                  <div
+                    class="btn btn-dark"
+                    style="width: 40px; border-radius:50%;"
+                    onclick="return confirm('Do you waant add this product to cart!')"
+                  >
+                    <i class="bi bi-cart-plus" style="font-size:16px;"></i>
+                    &nbsp
+                  </div>
+                </a>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                <a href="/add-to-wishlist/{{this._id}}">
+                  <div
+                    class="btn btn-dark"
+                    style="width: 40px; border-radius:50%;"
+                    onclick="return confirm('Your order has been successfully added to Wishlist !')"
+                  >
+                    <i style="font-size:14px;" class="bi bi-heart"></i>
+                    &nbsp
+                  </div>
+                </a>
+              </div>
+
+              {{! <a href="#" class="btn btn-primary">BUY</a> }}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

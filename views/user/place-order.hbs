@@ -1,0 +1,181 @@
+<div class="main-cont-place">
+    <section class=" container place-order">
+
+        <div class="place-order-main">
+            <form action="/place-order" id="checkout-form">
+                <div class="align-order">
+                 
+                    <h5
+                        style="text-align:center; font-weight:700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                        CHECKOUT DETAILS
+                    </h5>
+                   
+                    <hr>
+                     {{!-- <h5
+                        style="text-align:center; margin-top:30px; font-weight:600; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                        ADDRESS DETAILS</h5>  --}}
+                             <div class="infor-infor">
+                                <a href="/add-address" class="btn btn-secondary">ADD NEW ADDRESS</a>
+                            </div>
+                </div>
+                
+                {{#if addresses}}
+                <div class="addresse">
+                    {{#each addresses}}
+                    <div class="addresses">
+                        <div class="container">
+                            <div class="addr" style="display:flex;">
+                                <input type="radio" id="html" name="address"
+                                    value="{{this.address}},{{this.city}},{{this.district}},{{this.state}},{{this.pin}}">
+                                <div style="margin-left: 20px;">
+                                    <p style="padding-top: 15px;">{{this.address}}</p>
+                                    <p>{{this.city}} , {{this.district}}</p>
+                                    <p>{{this.state}} , {{this.pin}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <div class="temp-address">
+                     <div class="infor-infor">
+                                <a href="/add-address" class="btn btn-warning">ADD NEW ADDRESS</a>
+                            </div>
+                        {{!-- <div class="btn btn-warning ">
+                             Add Address 
+                        </div> --}}
+                        <div class="form-group">
+                            <input required type="street" class="form-control" name="address" id="autocomplete"
+                                placeholder="Address Line">
+                            <div class="address-align">
+                                <input type="text" class="form-control" name="address" id="inputCity" placeholder="City"
+                                    required>
+                                <input type="text" class="form-control" name="address" id="inputState"
+                                    placeholder="District">
+                            </div>
+                            <div class="address-align">
+                                <input required type="text" class="form-control" name="address" id="inputCounty"
+                                    placeholder="State">
+                                <input required type="text" class="form-control" name="address" id="inputCountry"
+                                    placeholder="Zip">
+                            </div>
+                            <input type="text" class="form-control" name="userId" id="" value="{{user._id}}" hidden>
+                        </div>
+                    
+                    {{/if}}
+                </div>
+                
+                <h5
+                    style=" text-align:center; margin-top:15px; margin-bottom:20px; font-weight:700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                    BILLING DETAILS
+                </h5>
+                <div class="order-radio mt-2" style="padding-left: 40px;">
+                    <input type="radio" name="payment-method" value="Credit-Card">
+                    <label for="html"> <i class="bi bi-credit-card-2-front-fill"></i> &nbsp&nbsp Razorpay</label><br>
+
+               <input type="radio" id="Credit Card" name="payment-method" value="Paypal">
+                <label for="html"><i class="bi bi-paypal"></i> &nbsp &nbsp PayPal</label><br>
+                    <input type="radio" id="Credit Card" name="payment-method" value="COD">
+                    <label for="html"><i class="bi bi-cash-coin"></i> &nbsp &nbsp Cash on Delivery</label><br>
+
+                </div>
+                <div class="btn btn-grad" type="submit" value="submit" onclick="checkout()">Confirm</div>
+
+        </div>
+
+
+        <div class="merkbox">   
+            <div class="merktitel" style="background-color: #606060">
+                <p style="text-align: center;">
+                    ORDER SUMMARY
+                </p>
+            </div>
+            <div class="merktext">
+                <p> Order Amount &nbsp &nbsp&nbsp :&nbsp &nbsp ₹ &nbsp {{total}}.00 </p>
+                <p> Shipping Charge &nbsp :&nbsp &nbsp ₹ &nbsp 0.00</p>
+                <hr>
+                Final Price &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp :&nbsp &nbsp ₹ &nbsp {{total}}.00
+            </div>
+            
+            </form>
+        </div>
+    </section>
+</div>
+</div>
+
+
+
+
+<script>
+    function checkout() {
+        $.ajax(
+            {
+                url: '/place-order',
+                method: 'post',
+                data: $('#checkout-form').serialize(),
+                success: (response) => {
+
+                    if (response.cod_success) {
+                        location.href = '/successful-order'
+                    }
+                    else {
+                        razorpayPayment(response)
+                    }
+                }
+            }
+        )
+        function razorpayPayment(order) {
+            var options = {
+                "key": "rzp_test_ENXqy11KzQ0i3j", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "TIME ZONE",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+
+                    verifyPayment(response, order)
+
+                },
+                "prefill":
+                {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes":
+                {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+    }
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/successful-order'
+                }
+                else {
+                    alert('Payment Failed')
+                }
+            }
+        })
+    }
+
+
+</script>

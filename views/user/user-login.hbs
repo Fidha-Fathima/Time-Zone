@@ -1,0 +1,24 @@
+<section class="user-login">
+    <div class="container">
+        <div class="user-login-form">
+            <h1>Sign In</h1>
+            <form action="/user-login" method="post">
+            {{#if loginErr}}
+            <p class="error" style="color: red; "> Invalid Username / Password</p>
+            {{/if}}
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                 <div class="log-user-but">
+                <button type="submit" class="btn border border-secondary"> Login</button>
+            </div>
+            </form>
+            {{!-- <a href="#"><u>Forgot Password ?</u><a></a><br> --}}
+
+                {{!-- <h6>OR</h6> --}}
+                {{!-- <div class="otp-log-but">
+                   <a href="/otp-login"> <button type="button" class="btn border border-secondary">OTP Login</button></a>
+                </div> --}}
+                <a href="/registration">New to TIME ZONE ?&nbsp<u>Sign up here</u><a></a>
+        </div>
+    </div>
+</section>

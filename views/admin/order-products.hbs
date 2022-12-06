@@ -1,0 +1,43 @@
+<div class="p-1 my-container active-cont">
+    <section>
+        <section>
+    <div class="container">
+        <div class="cont" >
+            <div class="ordered-pro"
+                style="width: 100%;background-color:rgb(255, 255, 255);min-height: 450px; overflow: hidden;">
+                <div class="contpro" style="text-align: center;">
+                    <h2 style="font-weight: 600;"> <img style="width:100px;height:80px;"
+                            src="https://cdn.dribbble.com/users/2046015/screenshots/5973727/06-loader_telega.gif">ORDER
+                        DETAILS</h2>
+
+                    <table class="table">
+                                                                    
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" style="width:10%">Image</th>
+                                <th scope="col" style="width:20%">Product</th>
+                                <th scope="col" style="width:40%">Description</th>
+                                <th scope="col" style="width:10%">Price</th>
+                                <th scope="col" style="width:10%">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each product}}
+                            <td style="width: 10%;"><img style="width: 50px; height:50px"
+                                    src="/product-images/{{this.product._id}}0.jpg"></td>
+                            <td>{{this.product.name}}</td>
+                            <td>{{this.product.description}}</td>
+                            <td>{{this.product.price}}</td>
+                            <td>{{this.quantity}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+</div>

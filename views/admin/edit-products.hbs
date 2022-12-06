@@ -1,0 +1,50 @@
+
+<!-- Main Wrapper -->
+
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>EDIT PRODUCTS</h2>
+                </div>
+            </div>
+            
+            <section>
+                <div class="container">
+                    <div class="main-form-add mt-4">
+                        <div class="container ">
+                            <form action="/admin/edit-products/{{product._id}}" method="post" enctype="multipart/form-data">
+                                <label for="">Name</label>
+                                <input type="text" name="name" class="form-control" value="{{product.name}}">
+                                <label for="">Category</label>
+                                <select name="category" id="" class="form-control"  style="width: 50%;">
+                                    <option value="{{product.category}}">{{product.categories.[0].categoryname}}</option>
+                                    {{#each category}}
+                                    <option value="{{this._id}}">{{this.categoryname}}</option>
+                                    {{/each}}
+                                </select>
+
+                                 {{!-- <label for="">Category</label>
+                                <input type="text" name="category" class="form-control"  value="{{product.category}}"> --}}
+                                 <label for="">Description</label>
+                                 <input type="text" class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"  value="{{product.description}}">
+                                 <label for="">Price</label>
+                                <input type="text" name="price" class="form-control"  value="{{product.price}}">
+                                 <label for="">Image</label><br>
+                                 <img src="/product-images/{{product._id}}0.jpg" alt="" style="width: 100px ;height:auto;">
+                                <input type="file" name="image" class="form-control my-3" >
+                                 <img src="/product-images/{{product._id}}1.jpg" alt="" style="width: 100px ;height:auto;">
+                                <input type="file" name="image" class="form-control my-3" >
+                                 <img src="/product-images/{{product._id}}2.jpg" alt="" style="width: 100px ;height:auto;">
+                                <input type="file" name="image" class="form-control my-3" >
+                                <button type="submit" class="btn btn-success mt-4">Submit</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+</div>

@@ -1,0 +1,214 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="p-1 my-container active-cont">
+    <div class="row" style="padding: 20px; padding-left :30px; width:90%">
+        <div class="col-xl-3 col-sm-6 mb-3 " style="height:100px;">
+            <div class=" text-white bg-warning  o-hidden h-100">
+                <div class="card-body" style="color: black;">
+                    <div>USERS</div>
+                    <h2>{{count}}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 mb-3 " style="height:100px;">
+            <div class=" text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                    <div>PRODUCTS</div>
+                    <h2>{{product}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3 " style="height:100px;">
+            <div class=" text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                    <div>ORDERS</div>
+                    <h2>{{order}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- <div class="main-graph" style="display: grid;">
+        <div style="width:50% ;">
+            <canvas id="myChart">
+            </canvas>
+        </div>
+    </div> --}}
+
+    <section class="bg-white py-5 mx-3">
+        <div class="row">
+            <div class="" style="width: 50%;">
+                <canvas id="bar-chart" ></canvas>
+            </div>
+            <div class="col-lg-5"  style="width: 50%;">
+                <canvas id="circle-chart" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+            </div>
+        </div>
+         <div class="col-lg-5"  style="width: 60%;">
+                <canvas id="finalchart" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+            </div>
+    </section>
+</div>
+
+
+<script>
+    let monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let monthlyProfit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let weekly = [0, 0, 0, 0, 0, 0, 0]
+    let weekName = ["Sunday", "Monday", "Tuesday", "WednesDay", "Thursday", "Friday", "Saturday"]
+    let paymethod=["Paypal","Razorpay","Cash on Delivery"]
+    let payamount=[0,0,0]
+    let barChart = document.getElementById("bar-chart").getContext('2d')
+    let circleChart = document.getElementById("circle-chart").getContext('2d')
+    let finalchart=document.getElementById("finalchart").getContext('2d')
+    document.addEventListener('DOMContentLoaded', () => 
+    {
+        fetch('/admin/getChartData', 
+        {
+            method: 'get',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => res.json()).then(res => 
+        {
+            let { data, weeklyReport } = res;
+            for (i = 0; i < data.length; ++i) 
+            {
+                switch (data[i].month)
+                 {
+                    case 1:
+                        monthlyProfit[0] = data[i].total
+                        break;
+                    case 2:
+                        monthlyProfit[1] = data[i].total
+                        break;
+                    case 3:
+                        monthlyProfit[2] = data[i].total
+                        break;
+                    case 4:
+                        monthlyProfit[3] = data[i].total
+                        break;
+                    case 5:
+                        monthlyProfit[4] = data[i].total
+                        break;
+                    case 6:
+                        monthlyProfit[5] = data[i].total
+                        break;
+                    case 7:
+                        monthlyProfit[6] = data[i].total
+                        break;
+                    case 8:
+                        monthlyProfit[7] = data[i].total
+                        break;
+                    case 9:
+                        monthlyProfit[8] = data[i].total
+                        break;
+                    case 10:
+                        monthlyProfit[9] = data[i].total
+                        break;
+                    case 11:
+                        monthlyProfit[10] = data[i].total
+                        break;
+                    case 12:
+                        monthlyProfit[11] = data[i].total
+                        break;
+                }
+            }
+            console.log(monthlyProfit)
+            const months = monthName;
+            const data1 = {
+                labels: months,
+                datasets: [{
+                    label: 'Monthly sales',
+                    backgroundColor: "blue",
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: monthlyProfit,
+                }]
+            };
+            const monthlyconfig = {
+                type: 'bar',
+                data: data1,
+                options: {}
+            };
+            let chart1 = new Chart(barChart, monthlyconfig)
+            
+            for (i = 0; i < weeklyReport.length; ++i) {
+                switch (weeklyReport[i].date) {
+                    case 1:
+                        weekly[0] = weeklyReport[i].total
+                        break;
+                    case 2:
+                        weekly[1] = weeklyReport[i].total
+                        break;
+                    case 3:
+                        weekly[2] = weeklyReport[i].total
+                        break;
+                    case 4:
+                        weekly[3] = weeklyReport[i].total
+                        break;
+                    case 5:
+                        weekly[4] = weeklyReport[i].total
+                        break;
+                    case 6:
+                        weekly[5] = weeklyReport[i].total
+                        break;
+                    case 7: weekly[6] = weeklyReport[i].total
+                        break;
+                }
+            }
+
+            
+            //weekly sales
+            const labels = weekName;
+            const data2 = {
+                labels: labels,
+                datasets: [{
+                    label: 'Weekly sales',
+                    backgroundColor: 'red',
+                    borderColor: 'red',
+                    data: weekly,
+                }]
+            };
+            const config = {
+                type: 'line',
+                data: data2,
+                options: {}
+            };
+            let chart2 = new Chart(circleChart, config)
+
+
+
+{{!-- 
+            for (i = 0; i < weeklyReport.length; ++i) {
+                switch (weeklyReport[i].method) {
+                    case 1:
+                        payamount[0] = weeklyReport[i].total
+                        break;
+                    case 2:
+                        payamount[1] = weeklyReport[i].total
+                        break;
+                    case 3:
+                        payamount[2] = weeklyReport[i].total
+                        break;
+                }
+            }
+            const paymentmethod=paymethod;
+            const data3={
+                labels:paymentmethod,
+                datasets:[{
+                    abel: 'Payment Methods',
+                    backgroundColor: "green",
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: payamount,
+                }]
+            };
+             const config = {
+                type: 'line',
+                data: data3,
+                options: {}
+            };
+            let chart3 = new Chart(finalchart,config) --}}
+        })
+    })
+    
+  
+</script>
+

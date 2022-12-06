@@ -1,0 +1,60 @@
+<!-- Main Wrapper -->
+{{!-- <link rel="stylesheet" href="/node_modules/cropperjs/dist/cropper.min.css">
+<script src="/node_modules/cropperjs/dist/cropper.min.js"></script> --}}
+
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>ADD PRODUCTS</h2>
+                </div>
+            </div>
+
+            <section>
+                {{!-- <div class="container"> --}}
+                    <div class="main-form-add mt-4">
+                        <div class="container">
+                            <form action="/admin/add-products" method="post" enctype="multipart/form-data">
+                                <label for="">Name</label>
+                                <input  type="text" name="name" class="form-control"required>
+                                
+                                <label for="">Category</label>
+                                
+                                <select name="category" id="" class="form-control" style="width: 50%;">
+                                    {{#each category}}
+                                    <option value="{{this._id}}">  {{this.categoryname}}  </option>
+                                    {{/each}}
+                                </select>
+                            
+                                <label for="">Description</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="description"
+                                    rows="3"></textarea>
+                                <label for="">Price</label>
+                                <input type="text" name="price" class="form-control"required>
+                                <label for="">offer</label>
+                                <input type="text" name="offer" class="form-control"required>
+                                <label for="">Image</label>
+                                <input type="file" name="image" id="image" class="form-control"required>
+                                <input type="file" name="image" id="image" class="form-control"required>
+                                <input type="file" name="image" id="image" class="form-control"required>
+                                {{!-- <button class="btn-primary" id="cropImage"> Crop </button> --}}
+                                <button type="submit" class="btn btn-success mt-4">Submit
+                        </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+</div>
+</section>
+</div>
+
+{{!-- <script>
+    const image=document.getElementById('image');
+    const cropper= new Cropper(image,{
+        aspectRatio:0,
+        viewMode :0
+    })
+</script> --}}

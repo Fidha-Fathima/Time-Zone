@@ -1,0 +1,35 @@
+
+
+<!-- Main Wrapper -->
+
+
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>ADD Category</h2>
+                </div>
+            </div>
+            
+            <section>
+                {{!-- <div class="container"> --}}
+                    <div class="main-form-add mt-4">
+                        <div class="container ">
+                            <form action="/admin/add-category" method="post">
+                                <label for="">Category Name</label>
+                                <input type="text" name="categoryname" class="form-control"required>
+                                 <label for="">Description</label>
+                                <input type="text" name="description" class="form-control"required>
+                                {{!-- <label for="">Category offer</label>
+                                <input type="text" name="categoryoffer" class="form-control"> --}}
+                                <button type="submit" class="btn btn-success mt-4">Submit</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+</div>

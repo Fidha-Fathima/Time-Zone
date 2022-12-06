@@ -1,0 +1,291 @@
+<style>
+    #ftco-navbar {
+
+
+        display: none;
+    }
+
+    #signinForm .error {
+        color: red;
+    }
+</style>
+
+<section class="reg-user">
+    <div class="container">
+        <div class="reg-form-user">
+            <h1>Registration</h1>
+            {{!-- {{#if errors }}
+            {{#each errors }}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+                {{this.msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/each}}
+            {{/if}} --}}
+
+            <form id="signinForm">
+                {{!-- <div class="name-reg"> --}}
+                    {{!-- <input class="last-name" type="text" name="lastname" placeholder="Last Name"> --}}
+                    {{!-- </div> --}}
+                <div id="signupf">
+                    <div class="reg-reg-reg" style="padding-top:8px;">
+
+                        <input class="name" id="firstname" type="text" name="firstname" placeholder="Name">
+                    </div>
+                    <div class="reg-reg-reg" style="padding-top:8px;">
+
+                        <input type="text" id="mobilenumber" name="mobilenumber" placeholder="Mobile Number">
+                    </div>
+                    <div class="reg-reg-reg" style="padding-top:8px;">
+
+                        <input type="email" id="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="reg-reg-reg" style="padding-top:8px;">
+
+                        <input type="password" name="password" placeholder=" Password" id="psd">
+                    </div>
+                    <div class="reg-reg-reg" style="padding-top:8px;">
+
+                        <input type="password" name="con_password" placeholder="Confirm Password" id="cpsd">
+                    </div>
+                </div>
+
+
+
+                <div class="card-body" style="display: none;" id="otp-body">
+                    <h4 class="card-title text-center" style="margin-top: 50px;color:#fff">OTP
+                        VERIFICATION</h4>
+                    <P style="text-align: center;color:#fff;margin-top: 40px;">Enter the OTP number</P>
+                    <div class="card-text text-center mt-2
+                                    ">
+                        <div class="otp-form" id="otp-verify">
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                            <!-- Store OTP Value -->
+                            <input class="otp-value" form="notAform" name="opt-value" id="otp" type="hidden">
+
+                        </div>
+                    </div>
+                    <div class="btn btn-dark" onclick="submit_signin()">Verify OTP</div>
+
+                </div>
+
+
+
+
+
+                <div class="reg-but" id="reg-but" style="padding-top: 15px;">
+                    <input type="submit" name="" value="Signup">
+                </div>
+
+                <a href="/user-login" id="myWish">Already have an account?<br><u>Login Here !</u></a>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    setInterval(function () {
+        setTimeout(function () {
+            $('#alert').alert('close');
+        }, 50000);
+    }, 500);
+
+
+    $(document).ready(function () {
+        jQuery.validator.addMethod(
+            "lettersonly",
+            function (value, element) {
+                return this.optional(element) || /^[a-z A-Z]+$/.test(value);
+            },
+            "Letters only please"
+        );
+        jQuery.validator.addMethod(
+            "minlength5",
+            function (value, element) {
+                return this.optional(element) || (value.trim().length >= 5);
+            },
+            "Minimum 5 characters without space"
+        );
+        $.validator.methods.email = function (value, element) {
+            return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+        }
+
+        $("#signinForm").validate({
+            rules: {
+                firstname: {
+                    required: true,
+                    minlength5: true,
+                    lettersonly: true,
+                    minlength: 4,
+                },
+                mobilenumber: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                message: {
+                    required: true,
+                    minlength5: true,
+                    minlength: 10,
+                    maxlength: 200,
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                con_password: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#psd"
+                }
+            },
+            messages: {
+                firstname: {
+                    minlength: "Please Enter Your Full Name",
+                },
+                email: {
+                    email: "Please enter a valid Email id",
+                },
+                mobilenumber: {
+                    minlength: "The number is not valid",
+                    maxlength: "The number is not valid"
+                },
+                message: {
+                    minlength: "Its too short! minimum 10 characters",
+                    maxlength: "Oh no! it's too large",
+                },
+
+                con_password:
+                {
+                    equalTo: "Passwords didn't match"
+                }
+
+            },
+            submitHandler: function (form) {
+               
+               
+                sendOtp()
+            },
+        });
+    });
+
+
+    function sendOtp() {
+        
+        let number = document.getElementById('mobilenumber').value
+        $.ajax({
+            url: '/sendotp',
+            data: {
+                "mobilenumber": number
+            },
+            method: 'post',
+            success: function (res) {
+                if (res.status) {
+                    document.getElementById('signupf').style.display = "none"
+                    document.getElementById('reg-but').style.display = "none"
+                    document.getElementById('otp-body').style.display = "block"
+                }
+            }
+
+        })
+
+    }
+    function submit_signin() {
+       
+
+        let firstname = document.getElementById('firstname').value
+        let email = document.getElementById('email').value
+        let mobilenumber = document.getElementById('mobilenumber').value
+        let password = document.getElementById('psd').value
+        let otp = document.getElementById('otp').value
+
+
+
+        $.ajax({
+            url: '/registration',
+            data: {
+                "firstname": firstname,
+                "email": email,
+                "mobilenumber": mobilenumber,
+                "password": password,
+                "otp": otp
+            },
+            method: 'post',
+            success: function (res) {
+                if (res.status) {
+                    Swal.fire(
+                        'Success',
+                        'Resgistration successful !',
+                        'success'
+                    ).then(() => {
+                        window.location.href = "/user-login"
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Looks like you have entered the wrong OTP !',
+                        footer: 'Re-Enter the OTP'
+                    })
+                }
+            }
+
+        })
+    }
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $(".otp-form *:input[type!=hidden]:first").focus();
+        let otp_fields = $(".otp-form .otp-field"),
+            otp_value_field = $(".otp-form .otp-value");
+        otp_fields
+            .on("input", function (e) {
+                $(this).val(
+                    $(this)
+                        .val()
+                        .replace(/[^0-9]/g, "")
+                );
+                let opt_value = "";
+                otp_fields.each(function () {
+                    let field_value = $(this).val();
+                    if (field_value != "") opt_value += field_value;
+                });
+                otp_value_field.val(opt_value);
+            })
+            .on("keyup", function (e) {
+                let key = e.keyCode || e.charCode;
+                if (key == 8 || key == 46 || key == 37 || key == 40) {
+                    // Backspace or Delete or Left Arrow or Down Arrow
+                    $(this).prev().focus();
+                } else if (key == 38 || key == 39 || $(this).val() != "") {
+                    // Right Arrow or Top Arrow or Value not empty
+                    $(this).next().focus();
+                }
+            })
+            .on("paste", function (e) {
+                let paste_data = e.originalEvent.clipboardData.getData("text");
+                let paste_data_splitted = paste_data.split("");
+                $.each(paste_data_splitted, function (index, value) {
+                    otp_fields.eq(index).val(value);
+                });
+            });
+    });
+
+
+</script>

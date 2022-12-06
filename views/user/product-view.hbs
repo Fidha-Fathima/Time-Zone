@@ -1,0 +1,89 @@
+<script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+
+{{#each products}}
+<div class="container mt-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-6 border-end">
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="main_image" id="img-container"> <img src="/product-images/{{this._id}}0.jpg"
+                            id="main_product_image" width="300"> </div>
+                    <div class="thumbnail_images">
+                        <ul id="thumbnail">
+                            <li><img onclick="changeImage(this)" src="/product-images/{{this._id}}0.jpg" width="50"></li>
+                            <li><img onclick="changeImage(this)" src="/product-images/{{this._id}}1.jpg" width="50"></li>
+                            <li><img onclick="changeImage(this)" src="/product-images/{{this._id}}2.jpg" width="50"></li>
+                            {{!-- <li><img onclick="changeImage(this)" src="/product-images/{{this._id}}3.jpg" width="50"></li> --}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 right-side mt-5">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>{{this.name}}</h3> 
+                    </div>
+                    <div class="mt-2 pr-3 content">
+                        {{!-- <p style="font-size: 18px;">{{this.category}}</p> --}}
+                        <p style="font-size: 18px;">{{this.categories.[0].categoryname}}</p>
+
+                    </div>
+                    <div class="mt-2 pr-3 content">
+                        <p style="font-size: 18px;">{{this.description}}</p>
+                    </div>
+
+                    
+        
+   
+                   
+                      {{#ifCond this.offer 0}}
+                 <h3>₹ {{this.price}}</h3> 
+              {{else}}
+                <s>
+                  <h3 style="color:red;">₹ {{this.price}}</h3> 
+                </s>
+                <h3>₹ {{this.total}}</h3> 
+              {{/ifCond}}
+                   
+                    
+                   
+
+                    
+                    <div class="ratings d-flex flex-row align-items-center">
+                        <div class="buttons d-flex flex-row mt-5 gap-3">
+                            <a href="/add-to-wishlist/{{this._id}}">
+                                <button class="btn btn-outline-dark">Add to Wishlist</button> </a>
+                            <a href="/add-to-cart/{{this._id}}">
+                                <button class="btn btn-dark">Add to Basket</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <script>
+        var options = {
+            width: 200,
+            zoomWidth: 200,
+            offset: { vertical: 70, horizontal: 200 }
+        };
+        new ImageZoom(document.getElementById("img-container"), options);
+
+    </script>
+
+
+
+    {{!--
+    {{#each ../categories}}
+    {{#ifCond ../this.category this._id}}
+    {{#if this.offer}}
+    <strike>
+        <h6 class="text-start"> ₹{{../this.price}}
+    </strike>&nbsp;₹{{#off ../this.price this.offer}}{{/off}}</h6>
+    <span class="badge" style="position: absolute;top: 22rem;left: 15rem;color:black;">-{{this.offer}}%</span>
+    {{else}}
+    <h6 class="text-start"> ₹{{../this.price}}</h6>
+    {{/if}}
+    {{/ifCond}}
+    {{/each}} --}}

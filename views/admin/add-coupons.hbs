@@ -1,0 +1,30 @@
+<div class="p-1 my-container active-cont">
+    <section>
+        <div class="container-fluid">
+            <div class="add-pro-bar">
+                <div class="head-pro-bar">
+                    <h2>ADD Coupons</h2>
+                </div>
+            </div>
+            <section>
+                {{!-- <div class="container"> --}}
+                    <div class="main-form-add mt-4">
+                        <div class="container ">
+                            <form action="/admin/add-coupons" method="post">
+                                <label for="">Coupon Name</label>
+                                <input type="text" name="name" class="form-control"required>
+                                 <label for="">Coupon Code</label>
+                                <input type="text" name="coupon_code" class="form-control"required>
+                                <label for="">Coupon Discount</label>
+                                <input type="text" name="discount" class="form-control"required>
+                                  <label for="">Min amount</label>
+                                <input type="number" name="mintotal" class="form-control"required> 
+                                <button type="submit" class="btn btn-success mt-4">Submit</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
