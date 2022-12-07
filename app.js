@@ -62,7 +62,7 @@ app.use(session({secret:"Key",cookie:{maxAge:6000000}}))
 
 
 db.connect((err) => {
-  if(err) console.log('Database not connected')
+  if(err) console.log('Database not connected',err)
 else console.log('Database connected successfully')
 })
 app.use('/', userRouter);
@@ -73,7 +73,6 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -85,3 +84,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+  // error handler
